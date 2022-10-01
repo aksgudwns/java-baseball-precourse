@@ -54,7 +54,7 @@ public class BaseballService {
      * 3. 중복문자가 있는지 확인
      *
      */
-    private void validateUserInput(String userInput) {
+    public void validateUserInput(String userInput) {
         //길이가 3인지 확인
         if(userInput == null || userInput.length() != 3) throw new IllegalArgumentException();
 
@@ -72,7 +72,7 @@ public class BaseballService {
      * 입력된 charcter type의 문자가 0~9사이의 숫자인지 확인한다.
      *
      */
-    private void numberCheck(char ch) {
+    public void numberCheck(char ch) {
         if(ch< 49 || ch> 57) throw new IllegalArgumentException();
     }
 
@@ -81,7 +81,7 @@ public class BaseballService {
      * 들어온 문자를 0~9사이 숫자로 전환한 후 중복숫자가 있는지 확인한다.
      *
      */
-    private boolean duplicateCheck(String userInput) {
+    public boolean duplicateCheck(String userInput) {
         boolean[] numbers = new boolean[10];
         for(String str : userInput.split("")) {
             if(numbers[Integer.parseInt(str)]) throw new IllegalArgumentException();
@@ -144,7 +144,7 @@ public class BaseballService {
             strikeNum++;
         return strikeNum;
     }
-    
+
     /**
      *
      * 3스트라이크로 게임이 끝났는지 확인한다.
