@@ -1,13 +1,14 @@
 package baseball;
 
 import baseball.controller.BaseballController;
+import baseball.service.BaseballService;
 import baseball.vo.BaseballGameResult;
 import baseball.vo.ComputerAnswer;
 import baseball.vo.UserAnswer;
 
 public class Application {
     public static void main(String[] args) {
-        BaseballController baseballController = new BaseballController();
+        BaseballController baseballController = new BaseballController(BaseballService.getInstance());
         initGame(baseballController);
     }
 
