@@ -54,7 +54,15 @@ public class BaseballController {
         return baseballService.getResult(computerAnswer, userAnswer);
     }
 
+    /**
+     *
+     * 3스트라이크로 게임이 끝났는지 확인한다.
+     * 게임이 끝난 경우 유저에게 1,2 둘 중 하나를 입력받아 1일 경우 게임을 새로 시작하고,
+     * 2일 경우 프로그램을 종료한다.
+     * 다른 입력값일 경우 IllegalArgumentException발생
+     *
+     */
     public boolean gameEnd(BaseballGameResult baseballGameResult) {
-        return false;
+        return baseballService.gameEnd(baseballGameResult);
     }
 }
