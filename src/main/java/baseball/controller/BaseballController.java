@@ -16,22 +16,32 @@ public class BaseballController {
         this.baseballService = baseballService;
     }
 
-    /*
-    * 숫자야구 컴퓨터 정답 생성
-    * */
+    /**
+     *
+     * 숫자야구 컴퓨터 정답 생성
+     *
+     */
     public ComputerAnswer createComputerAnswer() {
         return baseballService.createComputerAnswer();
     }
 
-    /*
-    * 게임시작 문구를 출력한다.
-    * */
+    /**
+     *
+     * 게임시작 문구를 출력한다.
+     *
+     */
     public void gameStart() {
         baseballService.gameStart();
     }
 
+    /**
+     *
+     * 유저가 입력한 숫자야구 정답을 읽는다.
+     *
+     */
     public UserAnswer readUserAnswer() {
-        return null;
+        String userInput = baseballService.readUserInput();
+        return baseballService.getUserAnswer(userInput);
     }
 
     public BaseballGameResult getResult(ComputerAnswer computerAnswer, UserAnswer userAnswer) {
