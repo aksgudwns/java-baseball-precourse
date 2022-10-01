@@ -1,7 +1,34 @@
 package baseball;
 
+import baseball.controller.BaseballController;
+import baseball.vo.BaseballGameResult;
+import baseball.vo.ComputerAnswer;
+import baseball.vo.UserAnswer;
+
 public class Application {
     public static void main(String[] args) {
-        // TODO: 프로그램 구현
+        BaseballController baseballController = new BaseballController();
+        initGame(baseballController);
+    }
+
+    private static void initGame(BaseballController baseballController) {
+        //컴퓨터 숫자 생성
+        ComputerAnswer computerAnswer = baseballController.createComputerAnswer();
+        startGame(baseballController, computerAnswer);
+    }
+
+    private static void startGame(BaseballController baseballController, ComputerAnswer computerAnswer) {
+        //게임시작
+        baseballController.gameStart();
+        //유저가 입력한 숫자 조회
+        UserAnswer userAnswer = baseballController.readUserAnswer();
+        //게임결과조회
+        BaseballGameResult baseballGameResult = baseballController.getResult(computerAnswer, userAnswer);
+        //3스트라이크가 아닌경우 다시 시작
+        if(baseballGameResult.getStrike() != 3)
+            startGame(baseballController, computerAnswer);
+        //3스트라이크인 경우 처음부터 시작할지 끝낼지 유저의 판단에 따라 결정
+        if(baseballGameResult.getStrike() == 3 && !baseballController.gameEnd(baseballGameResult))
+            initGame(baseballController);
     }
 }
