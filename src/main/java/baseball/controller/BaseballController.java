@@ -44,8 +44,14 @@ public class BaseballController {
         return baseballService.getUserAnswer(userInput);
     }
 
+    /**
+     *
+     * 유저가 입력한 숫자와 컴퓨터가 입력한 숫자를 비교한 뒤
+     * 스트라이크 볼 개수를 계산하고, 출력한다.
+     *
+     */
     public BaseballGameResult getResult(ComputerAnswer computerAnswer, UserAnswer userAnswer) {
-        return null;
+        return baseballService.getResult(computerAnswer, userAnswer);
     }
 
     public boolean gameEnd(BaseballGameResult baseballGameResult) {

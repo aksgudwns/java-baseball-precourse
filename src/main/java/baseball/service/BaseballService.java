@@ -1,5 +1,6 @@
 package baseball.service;
 
+import baseball.vo.BaseballGameResult;
 import baseball.vo.ComputerAnswer;
 import baseball.vo.UserAnswer;
 import camp.nextstep.edu.missionutils.Console;
@@ -99,4 +100,50 @@ public class BaseballService {
         String[] strArray = userInput.split("");
         return new UserAnswer(Integer.parseInt(strArray[0]), Integer.parseInt(strArray[1]), Integer.parseInt(strArray[2]));
     }
+
+    /**
+     *
+     * 유저의 정답과 컴퓨터의 정답을 비교하여 볼, 스트라이크 개수를 계산한다.
+     * 볼, 스트라이크 개수를 출력한다.
+     *
+     */
+    public BaseballGameResult getResult(ComputerAnswer computerAnswer, UserAnswer userAnswer) {
+        BaseballGameResult baseballGameResult = new BaseballGameResult(getBallNum(computerAnswer, userAnswer), getStrikeNum(computerAnswer, userAnswer));
+        System.out.println(baseballGameResult.getResultMessage());
+        return baseballGameResult;
+    }
+
+    /**
+     *
+     * 유저의 정답과 컴퓨터의 정답을 비교하여 볼의 개수를 계산한다.
+     *
+     */
+    private int getBallNum(ComputerAnswer computerAnswer, UserAnswer userAnswer) {
+        int ballNum = 0;
+        if(computerAnswer.getNumber1() == userAnswer.getNumber2() || computerAnswer.getNumber1() == userAnswer.getNumber3())
+            ballNum++;
+        if(computerAnswer.getNumber2() == userAnswer.getNumber1() || computerAnswer.getNumber2() == userAnswer.getNumber3())
+            ballNum++;
+        if(computerAnswer.getNumber3() == userAnswer.getNumber1() || computerAnswer.getNumber3() == userAnswer.getNumber2())
+            ballNum++;
+        return ballNum;
+    }
+
+    /**
+     *
+     * 유저의 정답과 컴퓨터의 정답을 비교하여 스트라이크 개수를 계산한다.
+     *
+     */
+    private int getStrikeNum(ComputerAnswer computerAnswer, UserAnswer userAnswer) {
+        int strikeNum = 0;
+        if(computerAnswer.getNumber1() == userAnswer.getNumber1())
+            strikeNum++;
+        if(computerAnswer.getNumber2() == userAnswer.getNumber2())
+            strikeNum++;
+        if(computerAnswer.getNumber3() == userAnswer.getNumber3())
+            strikeNum++;
+        return strikeNum;
+    }
+
+
 }
