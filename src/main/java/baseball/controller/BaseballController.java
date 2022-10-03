@@ -1,9 +1,8 @@
 package baseball.controller;
 
 import baseball.service.BaseballService;
+import baseball.vo.BaseballGameAnswer;
 import baseball.vo.BaseballGameResult;
-import baseball.vo.ComputerAnswer;
-import baseball.vo.UserAnswer;
 
 public class BaseballController {
 
@@ -21,7 +20,7 @@ public class BaseballController {
      * 숫자야구 컴퓨터 정답 생성
      *
      */
-    public ComputerAnswer createComputerAnswer() {
+    public BaseballGameAnswer createComputerAnswer() {
         return baseballService.createComputerAnswer();
     }
 
@@ -39,7 +38,7 @@ public class BaseballController {
      * 유저가 입력한 숫자야구 정답을 읽는다.
      *
      */
-    public UserAnswer readUserAnswer() {
+    public BaseballGameAnswer readUserAnswer() {
         String userInput = baseballService.readUserInput();
         return baseballService.getUserAnswer(userInput);
     }
@@ -50,7 +49,7 @@ public class BaseballController {
      * 스트라이크 볼 개수를 계산하고, 출력한다.
      *
      */
-    public BaseballGameResult getResult(ComputerAnswer computerAnswer, UserAnswer userAnswer) {
+    public BaseballGameResult getResult(BaseballGameAnswer computerAnswer, BaseballGameAnswer userAnswer) {
         return baseballService.getResult(computerAnswer, userAnswer);
     }
 

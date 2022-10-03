@@ -1,8 +1,7 @@
 package baseball.service;
 
+import baseball.vo.BaseballGameAnswer;
 import baseball.vo.BaseballGameResult;
-import baseball.vo.ComputerAnswer;
-import baseball.vo.UserAnswer;
 import camp.nextstep.edu.missionutils.Console;
 import camp.nextstep.edu.missionutils.Randoms;
 
@@ -23,14 +22,14 @@ public class BaseballService {
      * 중복인거 빼고 생성
      *
      */
-    public ComputerAnswer createComputerAnswer() {
+    public BaseballGameAnswer createComputerAnswer() {
         boolean[] chk = new boolean[10];
         int number1 = Randoms.pickNumberInRange(1,9);
         chk[number1] = true;
         int number2 = getNoDuplicateNumber(chk);
         chk[number2] = true;
         int number3 = getNoDuplicateNumber(chk);
-        return new ComputerAnswer(number1, number2, number3);
+        return new BaseballGameAnswer(number1, number2, number3);
     }
 
     /**
@@ -116,9 +115,9 @@ public class BaseballService {
      * 유저에게서 입력받은 문자를 세개의 숫자로 변환 후 저장한다.
      *
      */
-    public UserAnswer getUserAnswer(String userInput) {
+    public BaseballGameAnswer getUserAnswer(String userInput) {
         String[] strArray = userInput.split("");
-        return new UserAnswer(Integer.parseInt(strArray[0]), Integer.parseInt(strArray[1]), Integer.parseInt(strArray[2]));
+        return new BaseballGameAnswer(Integer.parseInt(strArray[0]), Integer.parseInt(strArray[1]), Integer.parseInt(strArray[2]));
     }
 
     /**
@@ -127,7 +126,7 @@ public class BaseballService {
      * 볼, 스트라이크 개수를 출력한다.
      *
      */
-    public BaseballGameResult getResult(ComputerAnswer computerAnswer, UserAnswer userAnswer) {
+    public BaseballGameResult getResult(BaseballGameAnswer computerAnswer, BaseballGameAnswer userAnswer) {
         BaseballGameResult baseballGameResult =
                 new BaseballGameResult(getBallNum(computerAnswer, userAnswer), getStrikeNum(computerAnswer, userAnswer));
         System.out.println(baseballGameResult.getResultMessage());
@@ -139,7 +138,7 @@ public class BaseballService {
      * 유저의 정답과 컴퓨터의 정답을 비교하여 볼의 개수를 계산한다.
      *
      */
-    private int getBallNum(ComputerAnswer computerAnswer, UserAnswer userAnswer) {
+    private int getBallNum(BaseballGameAnswer computerAnswer, BaseballGameAnswer userAnswer) {
         int ballNum = 0;
         if(computerAnswer.getNumber1() == userAnswer.getNumber2()
                 || computerAnswer.getNumber1() == userAnswer.getNumber3())
@@ -158,7 +157,7 @@ public class BaseballService {
      * 유저의 정답과 컴퓨터의 정답을 비교하여 스트라이크 개수를 계산한다.
      *
      */
-    private int getStrikeNum(ComputerAnswer computerAnswer, UserAnswer userAnswer) {
+    private int getStrikeNum(BaseballGameAnswer computerAnswer, BaseballGameAnswer userAnswer) {
         int strikeNum = 0;
         if(computerAnswer.getNumber1() == userAnswer.getNumber1())
             strikeNum++;

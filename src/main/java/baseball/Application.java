@@ -2,9 +2,8 @@ package baseball;
 
 import baseball.controller.BaseballController;
 import baseball.service.BaseballService;
+import baseball.vo.BaseballGameAnswer;
 import baseball.vo.BaseballGameResult;
-import baseball.vo.ComputerAnswer;
-import baseball.vo.UserAnswer;
 
 public class Application {
     public static void main(String[] args) {
@@ -14,15 +13,15 @@ public class Application {
 
     private static void initGame(BaseballController baseballController) {
         //컴퓨터 숫자 생성
-        ComputerAnswer computerAnswer = baseballController.createComputerAnswer();
+        BaseballGameAnswer computerAnswer = baseballController.createComputerAnswer();
         startGame(baseballController, computerAnswer);
     }
 
-    private static void startGame(BaseballController baseballController, ComputerAnswer computerAnswer) {
+    private static void startGame(BaseballController baseballController, BaseballGameAnswer computerAnswer) {
         //게임시작
         baseballController.gameStart();
         //유저가 입력한 숫자 조회
-        UserAnswer userAnswer = baseballController.readUserAnswer();
+        BaseballGameAnswer userAnswer = baseballController.readUserAnswer();
         //게임결과조회
         BaseballGameResult baseballGameResult = baseballController.getResult(computerAnswer, userAnswer);
         //3스트라이크가 아닌경우 다시 시작

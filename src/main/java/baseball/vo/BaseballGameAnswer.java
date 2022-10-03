@@ -1,13 +1,17 @@
 package baseball.vo;
 
-public class ComputerAnswer {
+public class BaseballGameAnswer {
     private int number1;
 
     private int number2;
 
     private int number3;
 
-    public ComputerAnswer(int number1, int number2, int number3) {
+    public BaseballGameAnswer(){
+
+    }
+
+    public BaseballGameAnswer(int number1, int number2, int number3) {
         this.number1 = number1;
         this.number2 = number2;
         this.number3 = number3;
@@ -25,7 +29,4 @@ public class ComputerAnswer {
         return number3;
     }
 
-    public ComputerAnswer(){
-
-    }
 }
