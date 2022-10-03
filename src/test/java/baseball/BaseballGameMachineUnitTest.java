@@ -16,7 +16,8 @@ class BaseballGameMachineUnitTest extends NsTest {
         assertRandomNumberInRangeTest(
                 () -> {
                     BaseballGameMachine baseballGameMachine = new BaseballGameMachine();
-                    baseballGameMachine.setUserAnswer(new int[] {1,2,3});
+                    baseballGameMachine.initializeGame();
+                    baseballGameMachine.setUserAnswer("123");
                     BaseballGameResult result = baseballGameMachine.getResult();
                     assertThat(result.getStrike() == 3 && result.getBall() == 0).isTrue();
                 },
@@ -29,7 +30,8 @@ class BaseballGameMachineUnitTest extends NsTest {
         assertRandomNumberInRangeTest(
                 () -> {
                     BaseballGameMachine baseballGameMachine = new BaseballGameMachine();
-                    baseballGameMachine.setUserAnswer(new int[] {1,2,3});
+                    baseballGameMachine.initializeGame();
+                    baseballGameMachine.setUserAnswer("123");
                     BaseballGameResult result = baseballGameMachine.getResult();
                     assertThat(result.getStrike() == 0 && result.getBall() == 0).isTrue();
                 },
@@ -43,7 +45,8 @@ class BaseballGameMachineUnitTest extends NsTest {
         assertRandomNumberInRangeTest(
                 () -> {
                     BaseballGameMachine baseballGameMachine = new BaseballGameMachine();
-                    baseballGameMachine.setUserAnswer(new int[] {1,2,3});
+                    baseballGameMachine.initializeGame();
+                    baseballGameMachine.setUserAnswer("123");
                     BaseballGameResult result = baseballGameMachine.getResult();
                     assertThat(result.getStrike() == 1 && result.getBall() == 0).isTrue();
                 },
@@ -57,7 +60,8 @@ class BaseballGameMachineUnitTest extends NsTest {
         assertRandomNumberInRangeTest(
                 () -> {
                     BaseballGameMachine baseballGameMachine = new BaseballGameMachine();
-                    baseballGameMachine.setUserAnswer(new int[] {1,2,3});
+                    baseballGameMachine.initializeGame();
+                    baseballGameMachine.setUserAnswer("123");
                     BaseballGameResult result = baseballGameMachine.getResult();
                     assertThat(result.getStrike() == 0 && result.getBall() == 1).isTrue();
                 },
@@ -71,7 +75,8 @@ class BaseballGameMachineUnitTest extends NsTest {
         assertRandomNumberInRangeTest(
                 () -> {
                     BaseballGameMachine baseballGameMachine = new BaseballGameMachine();
-                    baseballGameMachine.setUserAnswer(new int[] {1,2,3});
+                    baseballGameMachine.initializeGame();
+                    baseballGameMachine.setUserAnswer("123");
                     BaseballGameResult result = baseballGameMachine.getResult();
                     assertThat(result.getStrike() == 1 && result.getBall() == 1).isTrue();
                 },

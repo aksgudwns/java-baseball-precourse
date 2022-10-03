@@ -2,8 +2,21 @@ package baseball.view;
 
 import baseball.domain.BaseballGameResult;
 
-public class PrintBaseballGameResult {
-    public PrintBaseballGameResult(BaseballGameResult baseballGameResult) {
+public class BaseballGameResultView extends BaseballGameView {
+
+    BaseballGameResult baseballGameResult;
+
+    public BaseballGameResultView() {
+
+    }
+
+    public BaseballGameResultView(BaseballGameResult baseballGameResult) {
+        this.baseballGameResult = baseballGameResult;
+    }
+
+    @Override
+    public void print() {
+        super.print();
         int ball = baseballGameResult.getBall();
         int strike = baseballGameResult.getStrike();
 

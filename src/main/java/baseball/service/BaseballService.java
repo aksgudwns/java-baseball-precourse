@@ -1,31 +1,23 @@
 package baseball.service;
 
-import baseball.domain.BaseballGameAnswer;
 import baseball.domain.BaseballGameMachine;
 import baseball.domain.BaseballGameResult;
 import baseball.domain.BaseballGameRule;
-import camp.nextstep.edu.missionutils.Console;
-import camp.nextstep.edu.missionutils.Randoms;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class BaseballService {
 
-    static BaseballService instance;
-
-    public static BaseballService getInstance() {
-        if(instance == null) {
-            instance = new BaseballService();
-        }
-        return instance;
-    }
-
+    private static final char CHAR_1 = 49;
+    private static final char CHAR_9 = 57;
 
     /**
      * 유저가 입력한 문자를 읽고, 유효성체크를 하여 올바른 입력값이 들어왔는지 확인한다.
      */
     public void readUserAnswer(BaseballGameMachine baseballGameMachine, String userInput) {
         validateUserInput(userInput);
-        char[] userInputs = userInput.toCharArray();
-        baseballGameMachine.setUserAnswer(new int[] {userInputs[0]-'0', userInputs[1]-'0', userInputs[2]-'0'});
+        baseballGameMachine.setUserAnswer(userInput);
     }
 
     /**
@@ -51,20 +43,19 @@ public class BaseballService {
      * 입력된 charcter type의 문자가 0~9사이의 숫자인지 확인한다.
      */
     public void numberCheck(char ch) {
-        if(ch< 49 || ch> 57) throw new IllegalArgumentException();
+        if(ch< CHAR_1 || ch> CHAR_9) throw new IllegalArgumentException();
     }
 
     /**
      * 들어온 문자를 0~9사이 숫자로 전환한 후 중복숫자가 있는지 확인한다.
      */
-    public boolean duplicateCheck(String userInput) {
-        boolean[] numbers = new boolean[10];
+    public void duplicateCheck(String userInput) {
+        Set duplicateCheckSet = new HashSet<Integer>();
         for(String str : userInput.split("")) {
-            if(numbers[Integer.parseInt(str)]) throw new IllegalArgumentException();
-
-            numbers[Integer.parseInt(str)] = true;
+            duplicateCheckSet.add(Integer.parseInt(str));
         }
-        return false;
+        if(duplicateCheckSet.size() != userInput.length())
+            throw new IllegalArgumentException();
     }
 
 
@@ -81,7 +72,7 @@ public class BaseballService {
      * 2일 경우 프로그램을 종료한다.
      * 다른 입력값일 경우 IllegalArgumentException발생
      */
-    public boolean gameEnd(String userInput) {
+    public boolean isGameEnd(String userInput) {
         if(BaseballGameRule.REPLAY_GAME_USER_INPUT.getValue().equals(userInput)) return false;
         if(BaseballGameRule.END_GAME_USER_INPUT.getValue().equals(userInput)) return true;
         throw new IllegalArgumentException();

@@ -3,27 +3,24 @@ package baseball.controller;
 import baseball.domain.BaseballGameMachine;
 import baseball.service.BaseballService;
 import baseball.domain.BaseballGameResult;
-import baseball.view.AskEndGame;
-import baseball.view.PrintBaseballGameResult;
-import baseball.view.RequestUserInput;
+import baseball.view.AskEndGameView;
+import baseball.view.BaseballGameResultView;
+import baseball.view.RequestUserInputView;
 
 public class BaseballController {
 
-    BaseballService baseballService;
+    private static BaseballService baseballService = new BaseballService();
 
     public BaseballController() {
-    }
-
-    public BaseballController(BaseballService baseballService) {
-        this.baseballService = baseballService;
     }
 
     /**
      * 유저가 입력한 숫자야구 정답을 읽는다.
      */
     public void readUserAnswer(BaseballGameMachine baseballGameMachine) {
-        RequestUserInput requestUserInput = new RequestUserInput();
-        baseballService.readUserAnswer(baseballGameMachine, requestUserInput.readUserInput());
+        RequestUserInputView requestUserInputView = new RequestUserInputView();
+        requestUserInputView.print();
+        baseballService.readUserAnswer(baseballGameMachine, requestUserInputView.readUserInput());
     }
 
     /**
@@ -32,7 +29,8 @@ public class BaseballController {
      */
     public void getResult(BaseballGameMachine baseballGameMachine) {
         BaseballGameResult baseballGameResult = baseballService.getResult(baseballGameMachine);
-        new PrintBaseballGameResult(baseballGameResult);
+        BaseballGameResultView baseballGameResultView = new BaseballGameResultView(baseballGameResult);
+        baseballGameResultView.print();
     }
 
     /**
@@ -41,8 +39,9 @@ public class BaseballController {
      * 2일 경우 프로그램을 종료한다.
      * 다른 입력값일 경우 IllegalArgumentException발생
      */
-    public boolean gameEnd() {
-        AskEndGame askEndGame = new AskEndGame();
-        return baseballService.gameEnd(askEndGame.readUserInput());
+    public boolean isGameEnd() {
+        AskEndGameView askEndGameView = new AskEndGameView();
+        askEndGameView.print();
+        return baseballService.isGameEnd(askEndGameView.readUserInput());
     }
 }

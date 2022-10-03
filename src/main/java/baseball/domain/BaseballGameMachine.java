@@ -2,6 +2,9 @@ package baseball.domain;
 
 import camp.nextstep.edu.missionutils.Randoms;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class BaseballGameMachine {
 
     private BaseballGameAnswer computerAnswer;
@@ -13,19 +16,17 @@ public class BaseballGameMachine {
     private static final int GAME_END_STRIKE_NUMBER = 3;
 
     public BaseballGameMachine() {
-        createGameAnswer();
+
     }
 
     /**
      * 컴퓨터의 야구놀이 숫자를 생성한다.
      */
-    private void createGameAnswer() {
-        boolean[] duplicateCheck = new boolean[10];
+    public void initializeGame() {
+        Set<Integer> duplicateCheckSet = new HashSet<>();
         int number1 = Randoms.pickNumberInRange(GAME_MIN_RANGE,GAME_MAX_RANGE);
-        duplicateCheck[number1] = true;
-        int number2 = getNoDuplicateNumber(duplicateCheck);
-        duplicateCheck[number2] = true;
-        int number3 = getNoDuplicateNumber(duplicateCheck);
+        int number2 = getNoDuplicateNumber(duplicateCheckSet);
+        int number3 = getNoDuplicateNumber(duplicateCheckSet);
         this.computerAnswer = new BaseballGameAnswer(number1, number2, number3);
     }
 
@@ -33,16 +34,19 @@ public class BaseballGameMachine {
     /**
      * 중복숫자 체크 후 중복되지 않는 게임 최소 숫자 ~ 게임 최대 숫자 사이의 숫자를 리턴한다.
      */
-    private int getNoDuplicateNumber(boolean[] duplicateCheck) {
+    private int getNoDuplicateNumber(Set<Integer> duplicateCheck) {
         int number = Randoms.pickNumberInRange(GAME_MIN_RANGE, GAME_MAX_RANGE);
-        while(duplicateCheck[number]) {
+        while(duplicateCheck.contains(number)) {
             number = Randoms.pickNumberInRange(GAME_MIN_RANGE, GAME_MAX_RANGE);
         }
         return number;
     }
 
-    public void setUserAnswer(int[] userAnswer) {
-        this.userAnswer = new BaseballGameAnswer(userAnswer[0], userAnswer[1], userAnswer[2]);
+    public void setUserAnswer(String userInput) {
+        String[] userInputs = userInput.split("");
+        this.userAnswer = new BaseballGameAnswer(Integer.parseInt(userInputs[0]),
+                Integer.parseInt(userInputs[1]),
+                Integer.parseInt(userInputs[2]));
     }
 
     public BaseballGameResult getResult() {
