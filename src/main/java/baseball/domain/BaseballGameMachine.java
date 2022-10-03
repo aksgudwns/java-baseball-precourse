@@ -7,6 +7,11 @@ public class BaseballGameMachine {
     private BaseballGameAnswer computerAnswer;
     private BaseballGameAnswer userAnswer;
 
+    private static final int GAME_MIN_RANGE = 1;
+    private static final int GAME_MAX_RANGE = 9;
+
+    private static final int GAME_END_STRIKE_NUMBER = 3;
+
     public BaseballGameMachine() {
         createGameAnswer();
     }
@@ -16,7 +21,7 @@ public class BaseballGameMachine {
      */
     private void createGameAnswer() {
         boolean[] duplicateCheck = new boolean[10];
-        int number1 = Randoms.pickNumberInRange(1,9);
+        int number1 = Randoms.pickNumberInRange(GAME_MIN_RANGE,GAME_MAX_RANGE);
         duplicateCheck[number1] = true;
         int number2 = getNoDuplicateNumber(duplicateCheck);
         duplicateCheck[number2] = true;
@@ -26,12 +31,12 @@ public class BaseballGameMachine {
 
 
     /**
-     * 중복숫자 체크 후 중복되지 않는 1~9사이의 숫자를 리턴한다.
+     * 중복숫자 체크 후 중복되지 않는 게임 최소 숫자 ~ 게임 최대 숫자 사이의 숫자를 리턴한다.
      */
     private int getNoDuplicateNumber(boolean[] duplicateCheck) {
-        int number = Randoms.pickNumberInRange(1,9);
+        int number = Randoms.pickNumberInRange(GAME_MIN_RANGE, GAME_MAX_RANGE);
         while(duplicateCheck[number]) {
-            number = Randoms.pickNumberInRange(1,9);
+            number = Randoms.pickNumberInRange(GAME_MIN_RANGE, GAME_MAX_RANGE);
         }
         return number;
     }
@@ -41,8 +46,8 @@ public class BaseballGameMachine {
     }
 
     public BaseballGameResult getResult() {
-        BaseballGameResult baseballGameResult =
-                new BaseballGameResult(getBallNum(computerAnswer, userAnswer), getStrikeNum(computerAnswer, userAnswer));
+        BaseballGameResult baseballGameResult = new BaseballGameResult(
+                getBallNum(computerAnswer, userAnswer), getStrikeNum(computerAnswer, userAnswer));
         return baseballGameResult;
     }
 
@@ -75,6 +80,10 @@ public class BaseballGameMachine {
         if(computerAnswer.getNumber3() == userAnswer.getNumber3())
             strikeCount++;
         return strikeCount;
+    }
+
+    public boolean correctAnswer() {
+        return this.getResult().getStrike() == GAME_END_STRIKE_NUMBER;
     }
 
 }

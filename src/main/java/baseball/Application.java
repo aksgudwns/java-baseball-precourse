@@ -21,13 +21,13 @@ public class Application {
         baseballController.readUserAnswer(baseballGameMachine);
         //게임결과조회
         baseballController.getResult(baseballGameMachine);
-        //3스트라이크가 아닌경우 다시 시작
-        if(baseballGameMachine.getResult().getStrike() != 3) {
+        //정답이 아닌경우 숫자를 다시 입력받음
+        if(!baseballGameMachine.correctAnswer()) {
             startGame(baseballController, baseballGameMachine);
             return;
         }
-        //3스트라이크인 경우 처음부터 시작할지 끝낼지 유저의 판단에 따라 결정
-        if(baseballGameMachine.getResult().getStrike() == 3 && !baseballController.gameEnd())
+        //정답인 경우 처음부터 시작할지 끝낼지 유저의 판단에 따라 결정
+        if(baseballGameMachine.correctAnswer() && !baseballController.gameEnd())
             initializeGame(baseballController);
     }
 }

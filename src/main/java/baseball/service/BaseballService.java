@@ -3,6 +3,7 @@ package baseball.service;
 import baseball.domain.BaseballGameAnswer;
 import baseball.domain.BaseballGameMachine;
 import baseball.domain.BaseballGameResult;
+import baseball.domain.BaseballGameRule;
 import camp.nextstep.edu.missionutils.Console;
 import camp.nextstep.edu.missionutils.Randoms;
 
@@ -81,8 +82,8 @@ public class BaseballService {
      * 다른 입력값일 경우 IllegalArgumentException발생
      */
     public boolean gameEnd(String userInput) {
-        if("1".equals(userInput)) return false;
-        if("2".equals(userInput)) return true;
+        if(BaseballGameRule.REPLAY_GAME_USER_INPUT.getValue().equals(userInput)) return false;
+        if(BaseballGameRule.END_GAME_USER_INPUT.getValue().equals(userInput)) return true;
         throw new IllegalArgumentException();
     }
 
