@@ -73,8 +73,8 @@ public class BaseballService {
      * 다른 입력값일 경우 IllegalArgumentException발생
      */
     public boolean isGameEnd(String userInput) {
-        if(BaseballGameRule.REPLAY_GAME_USER_INPUT.getValue().equals(userInput)) return false;
-        if(BaseballGameRule.END_GAME_USER_INPUT.getValue().equals(userInput)) return true;
+        if(BaseballGameRule.REPLAY.getUserInput().equals(userInput)) return false;
+        if(BaseballGameRule.END.getUserInput().equals(userInput)) return true;
         throw new IllegalArgumentException();
     }
 

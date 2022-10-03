@@ -24,12 +24,12 @@ public class Application {
         //게임결과조회
         baseballController.getResult(baseballGameMachine);
         //정답이 아닌경우 숫자를 다시 입력받음
-        if(!baseballGameMachine.correctAnswer()) {
+        if(!baseballGameMachine.isCorrectAnswer()) {
             startGame(baseballGameMachine);
             return;
         }
         //정답인 경우 처음부터 시작할지 끝낼지 유저의 판단에 따라 결정
-        if(baseballGameMachine.correctAnswer() && !baseballController.isGameEnd())
+        if(baseballGameMachine.isCorrectAnswer() && !baseballController.isGameEnd())
             initializeGame(baseballGameMachine);
     }
 }

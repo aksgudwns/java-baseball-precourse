@@ -86,7 +86,7 @@ public class BaseballGameMachine {
         return strikeCount;
     }
 
-    public boolean correctAnswer() {
+    public boolean isCorrectAnswer() {
         return this.getResult().getStrike() == GAME_END_STRIKE_NUMBER;
     }
 

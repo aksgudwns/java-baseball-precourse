@@ -2,16 +2,16 @@ package baseball.domain;
 
 public enum BaseballGameRule {
 
-    REPLAY_GAME_USER_INPUT("1"),
-    END_GAME_USER_INPUT("2");
+    REPLAY("1"),
+    END("2");
 
-    private String value;
+    private String userInput;
 
-    public String getValue() {
-        return this.value;
+    public String getUserInput() {
+        return this.userInput;
     }
 
-    private BaseballGameRule(String value) {
-        this.value = value;
+    private BaseballGameRule(String userInput) {
+        this.userInput = userInput;
     }
 }
