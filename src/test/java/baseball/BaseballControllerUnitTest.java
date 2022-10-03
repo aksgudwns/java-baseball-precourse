@@ -24,39 +24,44 @@ class BaseballControllerUnitTest extends NsTest {
 
     @Test
     void 컴퓨터생성숫자_체크() {
-        assertThat(baseballController.createComputerAnswer().getNumber1()+'0' >= 49
-                && baseballController.createComputerAnswer().getNumber1()+'0' <= 57
-                && baseballController.createComputerAnswer().getNumber2()+'0' >= 49
-                && baseballController.createComputerAnswer().getNumber2()+'0' <= 57
-                && baseballController.createComputerAnswer().getNumber3()+'0' >= 49
-                && baseballController.createComputerAnswer().getNumber3()+'0' <= 57
+        ComputerAnswer computerAnswer = baseballController.createComputerAnswer();
+        assertThat(computerAnswer.getNumber1()+'0' >= 49
+                && computerAnswer.getNumber1()+'0' <= 57
+                && computerAnswer.getNumber2()+'0' >= 49
+                && computerAnswer.getNumber2()+'0' <= 57
+                && computerAnswer.getNumber3()+'0' >= 49
+                && computerAnswer.getNumber3()+'0' <= 57
         ).isTrue();
     }
 
     @Test
     void 컴퓨터생성숫자_범위체크() {
-        assertThat(baseballController.createComputerAnswer().getNumber1() <= 9
-                && baseballController.createComputerAnswer().getNumber1() > 0
-                && baseballController.createComputerAnswer().getNumber2() <= 9
-                && baseballController.createComputerAnswer().getNumber2() > 0
-                && baseballController.createComputerAnswer().getNumber3() <= 9
-                && baseballController.createComputerAnswer().getNumber3() > 0
+        ComputerAnswer computerAnswer = baseballController.createComputerAnswer();
+        assertThat(computerAnswer.getNumber1() <= 9
+                && computerAnswer.getNumber1() > 0
+                && computerAnswer.getNumber2() <= 9
+                && computerAnswer.getNumber2() > 0
+                && computerAnswer.getNumber3() <= 9
+                && computerAnswer.getNumber3() > 0
         ).isTrue();
     }
 
     @Test
     void 스트라이크_테스트() {
-        assertThat(baseballController.getResult(new ComputerAnswer(1,2,3), new UserAnswer(1,4,5)).getStrike() == 1).isTrue();
+        assertThat(baseballController.getResult(new ComputerAnswer(1,2,3), new UserAnswer(1,4,5)).getStrike() == 1)
+                .isTrue();
     }
 
     @Test
     void 볼_테스트() {
-        assertThat(baseballController.getResult(new ComputerAnswer(1,2,3), new UserAnswer(2,4,5)).getBall() == 1).isTrue();
+        assertThat(baseballController.getResult(new ComputerAnswer(1,2,3), new UserAnswer(2,4,5)).getBall() == 1)
+                .isTrue();
     }
 
     @Test
     void 낫싱_테스트() {
-        assertThat(baseballController.getResult(new ComputerAnswer(1,2,3), new UserAnswer(4,5,6)).getBall() == 0).isTrue();
+        assertThat(baseballController.getResult(new ComputerAnswer(1,2,3), new UserAnswer(4,5,6)).getBall() == 0)
+                .isTrue();
     }
 
 
@@ -78,6 +83,15 @@ class BaseballControllerUnitTest extends NsTest {
     void 예외_테스트_유저입력문자_중복숫자인경우() {
         assertThatThrownBy(() -> BaseballService.getInstance().validateUserInput("332"))
                 .isInstanceOf(IllegalArgumentException.class);
+    }
+
+
+    @Test
+    void 컴퓨터생성숫자_중복체크() {
+        ComputerAnswer computerAnswer = baseballController.createComputerAnswer();
+        assertThat(computerAnswer.getNumber1() != computerAnswer.getNumber2()
+                && computerAnswer.getNumber2() != computerAnswer.getNumber3()
+                && computerAnswer.getNumber3() != computerAnswer.getNumber1()).isTrue();
     }
 
 

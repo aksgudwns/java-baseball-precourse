@@ -20,10 +20,30 @@ public class BaseballService {
     /**
      *
      * 숫자야구 컴퓨터 정답 생성
+     * 중복인거 빼고 생성
      *
      */
     public ComputerAnswer createComputerAnswer() {
-        return new ComputerAnswer(Randoms.pickNumberInRange(1,9), Randoms.pickNumberInRange(1,9), Randoms.pickNumberInRange(1,9));
+        boolean[] chk = new boolean[10];
+        int number1 = Randoms.pickNumberInRange(1,9);
+        chk[number1] = true;
+        int number2 = getNoDuplicateNumber(chk);
+        chk[number2] = true;
+        int number3 = getNoDuplicateNumber(chk);
+        return new ComputerAnswer(number1, number2, number3);
+    }
+
+    /**
+     *
+     * 중복숫자 체크 후 중복되지 않는 1~9사이의 숫자를 리턴한다.
+     *
+     */
+    private int getNoDuplicateNumber(boolean[] chk) {
+        int number = Randoms.pickNumberInRange(1,9);
+        while(chk[number]) {
+            number = Randoms.pickNumberInRange(1,9);
+        }
+        return number;
     }
 
     /**
@@ -108,7 +128,8 @@ public class BaseballService {
      *
      */
     public BaseballGameResult getResult(ComputerAnswer computerAnswer, UserAnswer userAnswer) {
-        BaseballGameResult baseballGameResult = new BaseballGameResult(getBallNum(computerAnswer, userAnswer), getStrikeNum(computerAnswer, userAnswer));
+        BaseballGameResult baseballGameResult =
+                new BaseballGameResult(getBallNum(computerAnswer, userAnswer), getStrikeNum(computerAnswer, userAnswer));
         System.out.println(baseballGameResult.getResultMessage());
         return baseballGameResult;
     }
@@ -120,11 +141,14 @@ public class BaseballService {
      */
     private int getBallNum(ComputerAnswer computerAnswer, UserAnswer userAnswer) {
         int ballNum = 0;
-        if(computerAnswer.getNumber1() == userAnswer.getNumber2() || computerAnswer.getNumber1() == userAnswer.getNumber3())
+        if(computerAnswer.getNumber1() == userAnswer.getNumber2()
+                || computerAnswer.getNumber1() == userAnswer.getNumber3())
             ballNum++;
-        if(computerAnswer.getNumber2() == userAnswer.getNumber1() || computerAnswer.getNumber2() == userAnswer.getNumber3())
+        if(computerAnswer.getNumber2() == userAnswer.getNumber1()
+                || computerAnswer.getNumber2() == userAnswer.getNumber3())
             ballNum++;
-        if(computerAnswer.getNumber3() == userAnswer.getNumber1() || computerAnswer.getNumber3() == userAnswer.getNumber2())
+        if(computerAnswer.getNumber3() == userAnswer.getNumber1()
+                || computerAnswer.getNumber3() == userAnswer.getNumber2())
             ballNum++;
         return ballNum;
     }
