@@ -1,6 +1,6 @@
 package baseball.controller;
 
-import baseball.domain.BaseballGameMachine;
+import baseball.domain.BaseballGame;
 import baseball.service.BaseballService;
 import baseball.domain.BaseballGameResult;
 import baseball.view.AskEndGameView;
@@ -17,19 +17,20 @@ public class BaseballController {
     /**
      * 유저가 입력한 숫자야구 정답을 읽는다.
      */
-    public void readUserAnswer(BaseballGameMachine baseballGameMachine) {
+    public String getUserAnswer(BaseballGame baseballGame) {
         RequestUserInputView requestUserInputView = new RequestUserInputView();
         requestUserInputView.print();
-        baseballService.readUserAnswer(baseballGameMachine, requestUserInputView.readUserInput());
+        return baseballService.getUserAnswer(baseballGame, requestUserInputView.readUserInput());
     }
 
     /**
      * 유저가 입력한 숫자와 컴퓨터가 입력한 숫자를 비교한 뒤
      * 스트라이크 볼 개수를 계산하고, 출력한다.
      */
-    public void getResult(BaseballGameMachine baseballGameMachine) {
-        BaseballGameResult baseballGameResult = baseballService.getResult(baseballGameMachine);
-        BaseballGameResultView baseballGameResultView = new BaseballGameResultView(baseballGameResult);
+    public void startGame(BaseballGame baseballGame, String userInput) {
+        baseballService.setBaseballGameResult(baseballGame, userInput);
+        BaseballGameResultView baseballGameResultView =
+                new BaseballGameResultView(baseballService.getBaseballGameResult(baseballGame));
         baseballGameResultView.print();
     }
 

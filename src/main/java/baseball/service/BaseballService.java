@@ -1,6 +1,6 @@
 package baseball.service;
 
-import baseball.domain.BaseballGameMachine;
+import baseball.domain.BaseballGame;
 import baseball.domain.BaseballGameResult;
 import baseball.domain.BaseballGameRule;
 
@@ -15,9 +15,9 @@ public class BaseballService {
     /**
      * 유저가 입력한 문자를 읽고, 유효성체크를 하여 올바른 입력값이 들어왔는지 확인한다.
      */
-    public void readUserAnswer(BaseballGameMachine baseballGameMachine, String userInput) {
+    public String getUserAnswer(BaseballGame baseballGame, String userInput) {
         validateUserInput(userInput);
-        baseballGameMachine.setUserAnswer(userInput);
+        return userInput;
     }
 
     /**
@@ -62,8 +62,8 @@ public class BaseballService {
     /**
      * 숫자야구 결과를 조회한다.
      */
-    public BaseballGameResult getResult(BaseballGameMachine baseballGameMachine) {
-        return baseballGameMachine.getResult();
+    public void setBaseballGameResult(BaseballGame baseballGame, String userInput) {
+        baseballGame.setResult(userInput);
     }
 
     /**
@@ -78,4 +78,7 @@ public class BaseballService {
         throw new IllegalArgumentException();
     }
 
+    public BaseballGameResult getBaseballGameResult(BaseballGame baseballGame) {
+        return baseballGame.getResult();
+    }
 }

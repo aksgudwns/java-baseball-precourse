@@ -5,17 +5,17 @@ import camp.nextstep.edu.missionutils.Randoms;
 import java.util.HashSet;
 import java.util.Set;
 
-public class BaseballGameMachine {
+public class BaseballGame {
 
     private BaseballGameAnswer computerAnswer;
-    private BaseballGameAnswer userAnswer;
+    private BaseballGameResult baseballGameResult;
 
     private static final int GAME_MIN_RANGE = 1;
     private static final int GAME_MAX_RANGE = 9;
 
     private static final int GAME_END_STRIKE_NUMBER = 3;
 
-    public BaseballGameMachine() {
+    public BaseballGame() {
 
     }
 
@@ -25,7 +25,9 @@ public class BaseballGameMachine {
     public void initializeGame() {
         Set<Integer> duplicateCheckSet = new HashSet<>();
         int number1 = Randoms.pickNumberInRange(GAME_MIN_RANGE,GAME_MAX_RANGE);
+        duplicateCheckSet.add(number1);
         int number2 = getNoDuplicateNumber(duplicateCheckSet);
+        duplicateCheckSet.add(number2);
         int number3 = getNoDuplicateNumber(duplicateCheckSet);
         this.computerAnswer = new BaseballGameAnswer(number1, number2, number3);
     }
@@ -42,17 +44,21 @@ public class BaseballGameMachine {
         return number;
     }
 
-    public void setUserAnswer(String userInput) {
+    public BaseballGameAnswer getUserAnswer(String userInput) {
         String[] userInputs = userInput.split("");
-        this.userAnswer = new BaseballGameAnswer(Integer.parseInt(userInputs[0]),
+        return new BaseballGameAnswer(Integer.parseInt(userInputs[0]),
                 Integer.parseInt(userInputs[1]),
                 Integer.parseInt(userInputs[2]));
     }
 
-    public BaseballGameResult getResult() {
-        BaseballGameResult baseballGameResult = new BaseballGameResult(
+    public void setResult(String userInput) {
+        BaseballGameAnswer userAnswer = getUserAnswer(userInput);
+        this.baseballGameResult = new BaseballGameResult(
                 getBallNum(computerAnswer, userAnswer), getStrikeNum(computerAnswer, userAnswer));
-        return baseballGameResult;
+    }
+
+    public BaseballGameResult getResult() {
+        return this.baseballGameResult;
     }
 
     /**
@@ -87,7 +93,7 @@ public class BaseballGameMachine {
     }
 
     public boolean isCorrectAnswer() {
-        return this.getResult().getStrike() == GAME_END_STRIKE_NUMBER;
+        return this.baseballGameResult.getStrike() == GAME_END_STRIKE_NUMBER;
     }
 
 }
