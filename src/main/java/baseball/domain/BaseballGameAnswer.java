@@ -1,4 +1,4 @@
-package baseball.vo;
+package baseball.domain;
 
 public class BaseballGameAnswer {
     private int number1;
